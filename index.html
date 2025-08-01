@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamu Mau Gak?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #ffebee;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+            backdrop-filter: blur(5px);
+        }
+        
+        h1 {
+            color: #e91e63;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        
+        p {
+            color: #555;
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .love-particle {
+            position: absolute;
+            font-size: 20px;
+            color: #e91e63;
+            opacity: 0;
+            animation: float 5s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        #yesBtn {
+            background-color: #e91e63;
+            color: white;
+        }
+        
+        #noBtn {
+            background-color: #f8bbd0;
+            color: #e91e63;
+            position: relative;
+        }
+        
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hidden-message {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.3em;
+            color: #e91e63;
+            font-weight: bold;
+        }
+        
+        .couple-image {
+            margin: 30px auto;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #e91e63;
+            box-shadow: 0 10px 25px rgba(233, 30, 99, 0.3);
+        }
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .funny-note {
+            font-style: italic;
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                max-width: 95%;
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .couple-image {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="couple-image">
+            <img src="https://placehold.co/500x500" alt="Couple standing on a beach at sunset, smiling at each other" />
+        </div>
+        <h1>Hai Sayang! ❤️</h1>
+        <p>Aku punya pertanyaan penting nih... Aku udah coba nyari kata-kata paling keren buat bilang ini… tapi ternyata gak ada yang cukup pas.</p>
+        <p>Jadi aku bilang aja ya—aku suka kamu.</p>
+        <p>Bukan karena kamu cantik doang, tapi karena kamu bikin hari-hari aku kerasa kayak nemu charger 100% pas HP mau mati.</p>
+        <p>Mau gak... jadi alasan aku gak lowbat tiap hari?</p>
+        <p class="funny-note">*Baterai full lifetime warranty included</p>
+        
+        <div class="hidden-message" id="hiddenMessage">
+            Yeay! Charger eksklusif ditemukan ❤️<br>
+            Sekarang kita resmi couple yang saling charge semangat!
+        </div>
+        
+        <div class="buttons">
+            <button id="yesBtn">Mau Dong!</button>
+            <button id="noBtn">Nggak...</button>
+        </div>
+    </div>
+    
+    <script>
+        // Create love particles
+        function createLoveParticle() {
+            const love = document.createElement('div');
+            love.innerHTML = '❤️';
+            love.className = 'love-particle';
+            
+            // Random position
+            const xPos = Math.random() * window.innerWidth;
+            const yPos = Math.random() * window.innerHeight;
+            
+            love.style.left = xPos + 'px';
+            love.style.top = yPos + 'px';
+            
+            // Random size
+            const size = Math.random() * 25 + 15;
+            love.style.fontSize = size + 'px';
+            
+            // Random animation duration
+            const duration = Math.random() * 4 + 3;
+            love.style.animationDuration = duration + 's';
+            
+            document.body.appendChild(love);
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                love.remove();
+            }, duration * 1000);
+        }
+        
+        // Create initial particles
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createLoveParticle, i * 300);
+        }
+        
+        // Continuous particles
+        setInterval(createLoveParticle, 500);
+        
+        // Button interactions
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const hiddenMessage = document.getElementById('hiddenMessage');
+        
+        yesBtn.addEventListener('click', () => {
+            hiddenMessage.style.display = 'block';
+            noBtn.style.display = 'none';
+            
+            // Explosion of love particles
+            for (let i = 0; i < 50; i++) {
+                setTimeout(createLoveParticle, i * 50);
+            }
+            
+            // Change container style
+            document.querySelector('.container').style.backgroundColor = 'rgba(255, 235, 238, 0.9)';
+            document.querySelector('.container').style.boxShadow = '0 10px 25px rgba(233, 30, 99, 0.5)';
+        });
+        
+        noBtn.addEventListener('mouseover', () => {
+            // Make the "No" button move randomly
+            const containerWidth = document.querySelector('.container').offsetWidth;
+            const containerHeight = document.querySelector('.container').offsetHeight;
+            
+            const randomX = Math.random() * (containerWidth - noBtn.offsetWidth);
+            const randomY = Math.random() * (containerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            
+            // Add funny message
+            const funnyMessages = [
+                "Yakin nggak?",
+                "Coba dipikir lagi!",
+                "Di luar hujan lho...",
+                "Aku ada promo hari ini!",
+                "Nanti aku traktir makan?"
+            ];
+            
+            const randomMsg = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+            noBtn.textContent = randomMsg;
+            
+            // Add more love particles when hovering
+            createLoveParticle();
+            createLoveParticle();
+        });
+        
+        // Change funny messages periodically
+        setInterval(() => {
+            const funnyTitles = [
+                "Kamu Mau Gak?",
+                "Seriusan Nih!",
+                "Jawab Yang Bener Ya",
+                "Jangan Cuma Diam",
+                "Ini Pertanyaan Penting"
+            ];
+            
+            const randomTitle = funnyTitles[Math.floor(Math.random() * funnyTitles.length)];
+            document.querySelector('h1').textContent = randomTitle + ' ❤️';
+        }, 3000);
+    </script>
+</body>
+</html>
